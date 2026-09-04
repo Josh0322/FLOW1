@@ -9,7 +9,11 @@ public class SP1 {
         double money = 4750.50;
         boolean isActive = true;
         String[] genres = {"‘R’ (Rock)", "‘E’ (Electronic)", "‘H’ (HipHop)", "‘P’ (Pop)"};
-        String[] names = {"Electric Dreams", "Midnight Run", "Broken Strings", "Neon Lights"};
+        String[] songNames = {"Electric Dreams", "Midnight Run", "Broken Strings", "Neon Lights"};
+        String[] levels ={"Unknown - Playing in garages, ", "Local Hero - Small venues await",
+                "Rising Star - Festival invitations coming in", "Mainstream - Arena tours possible",
+                "Superstar - Stadium glory!"};
+
 
         System.out.println("=== BAND PROFILE ===");
         System.out.println("Name: " + band);
@@ -19,13 +23,14 @@ public class SP1 {
         System.out.println("XP: " + xp);
         System.out.println("Money: $" + money);
         System.out.println("Active: " + isActive);
+        System.out.println("Status: " + levels[1]);
         System.out.println("");
 
 
-        System.out.println("Repertoire (4 songs): ");
+        System.out.println("Repertoire (" + songNames.length + " songs): ");
 
         for (int i = 0; i < 4; i++) {
-            System.out.println("- " + names[i]);
+            System.out.println("- " + songNames[i]);
 
 
         }
