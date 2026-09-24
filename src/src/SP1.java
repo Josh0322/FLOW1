@@ -318,8 +318,6 @@ public class SP1 {
             myBand.printBandProfile();
             rival.printBandProfile();
 
-            // rival2.printBandProfile();
-
             // Festival with both bands:
             title("=== SUMMER FESTIVAL ===");
 
