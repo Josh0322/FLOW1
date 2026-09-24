@@ -1,10 +1,12 @@
+import org.w3c.dom.ls.LSOutput;
 
-    public class SP1 {
+public class SP1 {
 
         // Iteration 4 - Objects
         class Band {
 
-            // Band variables - instance fields
+            // instance fields
+            // Data, som hvert objekt har sin egen version af.Data, som hvert objekt har sin egen version af.
             String band;
             int fans;
             int maxFans;
@@ -67,12 +69,12 @@
                 }
 
                 title("=== " + band + " (" + genreName + ") ===");
-                System.out.println("Fame Level: " + fameLevel + " | Fans: " + fans + "/" + maxFans + " | Money: $" +  money);
+                System.out.println("Fame Level: " + fameLevel + " | Fans: " + fans + "/" + maxFans + " | Money: $" + money);
                 emptyLine();
             }
 
 
-            void playGig(int venueCapacity, int attendance) {
+            void playGig(int venueCapacity, int attendance) { // 2 paramtere
 
                 int oldFans = fans;
                 double oldMoney = money;
@@ -81,14 +83,15 @@
 
                 System.out.println(band + " plays to " + attendance + " people! (" + attendancePercentage + "% full)");
 
-                 // Gaining fans after concert:
+                // Gaining fans after concert:
                 int fanGain = attendance / 4;
                 gainFans(fanGain);
                 earnMoney(3000);
 
                 System.out.println("Fans: " + oldFans + " -> " + fans);
                 System.out.println("Money: $" + oldMoney + " -> $" + money);
-                emptyLine();;
+                emptyLine();
+
             }
 
 
@@ -202,10 +205,11 @@
             }
 
 
-            void getStatusTitle(int famelevel) {
+            void getStatusTitle(int famelevel) { // famelevel som parameter
 
+                // switch bruges, når du vil vælge mellem flere
+                // bestemte muligheder ud fra værdien af en variabel
                 switch (famelevel) {
-
                     case 1:
                         System.out.println(levels[0]);
                         break;
@@ -228,8 +232,11 @@
 
                     default:
                         System.out.println("Unknown fame level");
+
                 }
+
             }
+
 
             void compete(Band opponent) {
 
@@ -285,9 +292,11 @@
                 }
             }
         }
-        void emptyLine() {
-            System.out.println();
-        }
+
+             void emptyLine() {
+                System.out.println();
+            }
+
 
         void title(String message) {
             System.out.println("=== " + message + " ===");
@@ -303,8 +312,7 @@
 
             Band rival = new Band("Neon Disaster", 'E');
 
-            // Band rival2 = new Band("The Sharks", 'H');
-
+            // Band rival2 = new Band("The Sharks", 'H'); Kan tilføje flere bands.
 
             // Print starting profiles
             myBand.printBandProfile();
@@ -322,11 +330,19 @@
             myBand.compete(rival);
             emptyLine();
 
+            myBand.levelUp(); // Leveler myBand op
+            myBand.earnMoney(3000);
+
             // Print final profiles
             myBand.printBandProfile();
             rival.printBandProfile();
 
-
+            title("STATUS TITLES");
+            System.out.println(myBand.getName());
+            myBand.getStatusTitle(myBand.fameLevel);
+            emptyLine();
+            System.out.println(rival.getName());
+            rival.getStatusTitle(rival.fameLevel);
 
         }
     }
