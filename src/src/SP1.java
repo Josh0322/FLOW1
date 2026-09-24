@@ -105,7 +105,6 @@
             void loseFans(int amount) {
                 int newFans = fans - amount;
 
-                // Fans cannot go below 0
                 if (newFans < 0) {
                     newFans = 0;
                 }
@@ -299,7 +298,7 @@
         void main() {
             emptyLine();
 
-            // Create two different Band objects
+            // Create  differents band objects:
             Band myBand = new Band("The Static Waves", 'R');
 
             Band rival = new Band("Neon Disaster", 'E');
