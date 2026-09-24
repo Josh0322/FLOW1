@@ -1,38 +1,333 @@
-public class SP1 {
-    public static void main(String[] args) {
-        // SP1
-        String band = "The Static Waves";
-        int fans = 8500;
-        int maxFans = 15000;
-        int fameLevel = 2;
-        int xp = 3200;
-        double money = 4750.50;
-        boolean isActive = true;
-        String[] genres = {"‘R’ (Rock)", "‘E’ (Electronic)", "‘H’ (HipHop)", "‘P’ (Pop)"};
-        String[] songNames = {"Electric Dreams", "Midnight Run", "Broken Strings", "Neon Lights"};
-        String[] levels ={"Unknown - Playing in garages, ", "Local Hero - Small venues await",
-                "Rising Star - Festival invitations coming in", "Mainstream - Arena tours possible",
-                "Superstar - Stadium glory!"};
+
+    public class SP1 {
+
+        // Iteration 4 - Objects
+        class Band {
+
+            // Band variables - instance fields
+            String band;
+            int fans;
+            int maxFans;
+            int xp;
+            double money;
+            boolean isActive;
+            int fameLevel;
+            char genre;
+
+            String[] songNames = {
+                    "Electric Dreams",
+                    "Midnight Run",
+                    "Broken Strings",
+                    "Neon Lights"
+            };
+
+            String[] levels = {
+                    "Unknown - Playing in garages",
+                    "Local Hero - Small venues await",
+                    "Rising Star - Festival invitations coming in",
+                    "Mainstream - Arena tours possible",
+                    "Superstar - Stadium glory!"
+            };
 
 
-        System.out.println("=== BAND PROFILE ===");
-        System.out.println("Name: " + band);
-        System.out.println("Genre: " + genres[0]);
-        System.out.println("Fame level: " + fameLevel);
-        System.out.println("Fans: " + fans + "/" + maxFans);
-        System.out.println("XP: " + xp);
-        System.out.println("Money: $" + money);
-        System.out.println("Active: " + isActive);
-        System.out.println("Status: " + levels[1]);
-        System.out.println("");
+            // Constructor
+            Band(String band, char genre) {
+                this.band = band;
+                this.genre = genre;
+
+                fans = 1000;
+                maxFans = 5000;
+                xp = 0;
+                money = 500;
+                isActive = true;
+                fameLevel = 1;
+            }
+
+            // Instance methods:
+            int getFans() {
+                return fans;
+            }
 
 
-        System.out.println("Repertoire (" + songNames.length + " songs): ");
+            String getName() {
+                return band;
+            }
 
-        for (int i = 0; i < 4; i++) {
-            System.out.println("- " + songNames[i]);
+            void printBandProfile() {
+
+                String genreName = "";
+                if (genre == 'R') {
+                    genreName = "Rock";
+                } else if (genre == 'E') {
+                    genreName = "Electronic";
+                } else if (genre == 'H') {
+                    genreName = "HipHop";
+                } else if (genre == 'P') {
+                    genreName = "Pop";
+                }
+
+                title("=== " + band + " (" + genreName + ") ===");
+                System.out.println("Fame Level: " + fameLevel + " | Fans: " + fans + "/" + maxFans + " | Money: $" +  money);
+                emptyLine();
+            }
+
+
+            void playGig(int venueCapacity, int attendance) {
+
+                int oldFans = fans;
+                double oldMoney = money;
+
+                int attendancePercentage = attendance * 100 / venueCapacity;
+
+                System.out.println(band + " plays to " + attendance + " people! (" + attendancePercentage + "% full)");
+
+                 // Gaining fans after concert:
+                int fanGain = attendance / 4;
+                gainFans(fanGain);
+                earnMoney(3000);
+
+                System.out.println("Fans: " + oldFans + " -> " + fans);
+                System.out.println("Money: $" + oldMoney + " -> $" + money);
+                emptyLine();;
+            }
+
+
+            void gainFans(int amount) {
+                int newFans = fans + amount;
+
+                if (newFans > maxFans) {
+                    newFans = maxFans;
+                }
+
+                fans = newFans;
+            }
+
+            void loseFans(int amount) {
+                int newFans = fans - amount;
+
+                // Fans cannot go below 0
+                if (newFans < 0) {
+                    newFans = 0;
+                }
+
+                System.out.println("Fans: " + fans + " -> " + newFans);
+                fans = newFans;
+            }
+
+
+            void earnMoney(double amount) {
+                double newMoney = money + amount;
+                money = newMoney;
+            }
+
+
+            boolean spendMoney(double amount) {
+                if (money >= amount) {
+                    double newMoney;
+                    newMoney = money - amount;
+                    System.out.println("Spent money: " + money + " -> " + newMoney);
+                    money = newMoney;
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            void addXP(int amount) {
+
+                int newXP = xp + amount;
+                xp = newXP;
+
+                title("STATUS CHECK");
+
+                if (xp > 2000) {
+                    System.out.println("Ready to level up!");
+                }
+
+                if (xp <= 0) {
+                    System.out.println("The band has broken up...");
+                }
+            }
+
+            void levelUp() {
+
+                fameLevel = fameLevel + 1;
+                xp = 0;
+
+                if (fameLevel == 2) {
+                    maxFans = 15000;
+                } else if (fameLevel == 3) {
+                    maxFans = 50000;
+                } else if (fameLevel == 4) {
+                    maxFans = 200000;
+                } else if (fameLevel == 5) {
+                    maxFans = 1000000;
+                }
+            }
+
+            boolean isLosingRelevance() {
+
+                if (fans < maxFans * 0.25) {
+                    System.out.println("The band is losing relevance.");
+                    return true;
+                } else {
+                    System.out.println("The band is still relevant.");
+                    return false;
+                }
+            }
+
+            boolean isActive() {
+
+                if (fans > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            double getFanPercentage() {
+
+                double fanPercentage =
+                        (fans * 100.0) / maxFans;
+
+                return fanPercentage;
+            }
+
+            void printSongs() {
+
+                System.out.println("Repertoire (" + songNames.length + " songs): ");
+
+                for (int i = 0; i < songNames.length; i++) {
+                    System.out.println("- " + songNames[i]);
+                }
+            }
+
+
+            void getStatusTitle(int famelevel) {
+
+                switch (famelevel) {
+
+                    case 1:
+                        System.out.println(levels[0]);
+                        break;
+
+                    case 2:
+                        System.out.println(levels[1]);
+                        break;
+
+                    case 3:
+                        System.out.println(levels[2]);
+                        break;
+
+                    case 4:
+                        System.out.println(levels[3]);
+                        break;
+
+                    case 5:
+                        System.out.println(levels[4]);
+                        break;
+
+                    default:
+                        System.out.println("Unknown fame level");
+                }
+            }
+
+            void compete(Band opponent) {
+
+                System.out.println(band + " competes against " + opponent.band);
+
+                if (fans > opponent.fans) {
+                    System.out.println(band + " is dominating the scene!");
+
+                } else if (opponent.fans > fans) {
+                    System.out.println(opponent.band + " is the crowd favorite!");
+
+                } else {
+                    System.out.println("Both bands have the same number of fans!");
+                }
+            }
+
+
+            void getEventType(int type) {
+
+                int newFans;
+                switch (type) {
+
+                    case 1:
+                        System.out.println("Great review! +500 fans");
+                        newFans = fans + 500;
+
+                        if (newFans > maxFans) {
+                            newFans = maxFans;
+                        }
+
+                        System.out.println(fans + " -> " + newFans);
+                        fans = newFans;
+                        break;
+
+                    case 2:
+                        System.out.println("Quiet week. Nothing happens.");
+                        break;
+
+                    case 3:
+                        System.out.println("Scandal! -300 fans");
+                        newFans = fans - 300;
+
+                        if (newFans < 0) {
+                            newFans = 0;
+                        }
+
+                        System.out.println(fans + " -> " + newFans);
+                        fans = newFans;
+                        break;
+
+                    default:
+                        System.out.println("Unknown event type");
+                }
+            }
+        }
+        void emptyLine() {
+            System.out.println();
+        }
+
+        void title(String message) {
+            System.out.println("=== " + message + " ===");
+        }
+
+
+        // Main method
+        void main() {
+            emptyLine();
+
+            // Create two different Band objects
+            Band myBand = new Band("The Static Waves", 'R');
+
+            Band rival = new Band("Neon Disaster", 'E');
+
+            // Band rival2 = new Band("The Sharks", 'H');
+
+
+            // Print starting profiles
+            myBand.printBandProfile();
+            rival.printBandProfile();
+
+            // rival2.printBandProfile();
+
+            // Festival with both bands:
+            title("=== SUMMER FESTIVAL ===");
+
+            myBand.playGig(2000, 1800);
+            rival.playGig(2000, 1650);
+
+            // Who's better:
+            myBand.compete(rival);
+            emptyLine();
+
+            // Print final profiles
+            myBand.printBandProfile();
+            rival.printBandProfile();
+
 
 
         }
     }
-}
